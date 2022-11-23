@@ -26,6 +26,7 @@ import com.example.notesappmvvm.MainViewModelFactory
 import com.example.notesappmvvm.model.Note
 import com.example.notesappmvvm.navigation.NavRoute
 import com.example.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.example.notesappmvvm.utils.Constant
 
 @Composable
 fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
@@ -41,7 +42,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Add new note",
+                text = Constant.Keys.ADD_NEW_NOTE,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -52,7 +53,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                 onValueChange = {
                     title = it
                      isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty() },
-                label = { Text(text = "Note title") },
+                label = { Text(text = Constant.Keys.NOTE_TITLE) },
                 isError = title.isEmpty())
 
             OutlinedTextField(
@@ -60,7 +61,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                 onValueChange = {
                     subtitle = it
                     isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty() },
-                label = { Text(text = "Note subtitle") },
+                label = { Text(text = Constant.Keys.NOTE_SUBTITLE) },
                 isError = subtitle.isEmpty())
 
             Button(
@@ -71,7 +72,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                         navController.navigate(NavRoute.Main.route)
                     }
                     navController.navigate(NavRoute.Main.route) }) {
-                Text(text = "Add note")
+                Text(text = Constant.Keys.ADD_NOTE)
             }
         }
     }

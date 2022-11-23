@@ -3,12 +3,14 @@ package com.example.notesappmvvm
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.notesappmvvm.database.firebase.AppFireBaseRepository
 import com.example.notesappmvvm.database.room.AppRoomDataBase
 import com.example.notesappmvvm.database.room.repository.RoomRepository
 import com.example.notesappmvvm.model.Note
 import com.example.notesappmvvm.utils.REPOSITORY
 import com.example.notesappmvvm.utils.TYPE_FIREBASE
 import com.example.notesappmvvm.utils.TYPE_ROOM
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
@@ -25,6 +27,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val dao = AppRoomDataBase.getInstance(context = context).getRoomDao()
                 REPOSITORY = RoomRepository(dao)
                 onSuccess()
+            }
+            TYPE_FIREBASE -> {
+                REPOSITORY = AppFireBaseRepository()
+                REPOSITORY.connectToDatabase(
+                    { onSuccess() },
+                    { Log.d("MyLog", "Error: ${it}") }
+                )
             }
         }
     }
